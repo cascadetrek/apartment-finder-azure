@@ -7,6 +7,7 @@ import traceback
 if __name__ == "__main__":
     while True:
         print("{}: Starting scrape cycle".format(time.ctime()))
+        print("Sleep time = {} seconds".format(settings.SLEEP_INTERVAL))
         try:
             do_scrape()
         except KeyboardInterrupt:

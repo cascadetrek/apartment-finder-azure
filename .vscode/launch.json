@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [ 
+        {
+            "name": "Python",
+            "type": "python",
+            "pythonPath":"${config.python.pythonPath}", 
+            "request": "launch",
+            "stopOnEntry": false,
+            "console": "none",
+            "program": "${file}",
+            "cwd": "${workspaceRoot}",
+            "debugOptions": [
+                "WaitOnAbnormalExit",
+                "WaitOnNormalExit",
+                "RedirectOutput"
+            ],
+            "env": {"name":"value"}
+        },
+        {
+            "name": "Docker: Attach to Node",
+            "type": "node",
+            "request": "attach",
+            "port": 5858,
+            "address": "localhost",
+            "restart": false,
+            "sourceMaps": false,
+            "outFiles": [],
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": "/usr/src/app"
+        }
+    ]
+}

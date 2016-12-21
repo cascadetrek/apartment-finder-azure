@@ -52,14 +52,16 @@ def scrape_area(area):
     while True:
         try:
             result = next(gen)
+            #print(result)
         except StopIteration:
             break
         except Exception:
             continue
-        listing = session.query(Listing).filter_by(cl_id=result["id"]).first()
+        #JW listing = session.query(Listing).filter_by(cl_id=result["id"]).first()
 
         # Don't store the listing if it already exists.
-        if listing is None:
+        #JW if listing is None:
+        if (True):
             if result["where"] is None:
                 # If there is no string identifying which neighborhood the result is from, skip it.
                 continue
@@ -100,8 +102,8 @@ def scrape_area(area):
             )
 
             # Save the listing so we don't grab it again.
-            session.add(listing)
-            session.commit()
+            #JW session.add(listing)
+            #JW session.commit()
 
             # Return the result if it's near a bart station, or if it is in an area we defined.
             if len(result["bart"]) > 0 or len(result["area"]) > 0:
@@ -126,4 +128,5 @@ def do_scrape():
 
     # Post each result to slack.
     for result in all_results:
+        #print(result)
         post_listing_to_slack(sc, result)

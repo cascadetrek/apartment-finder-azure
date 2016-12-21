@@ -1,5 +1,6 @@
 import settings
 import math
+import sys
 
 def coord_distance(lat1, lon1, lat2, lon2):
     """
@@ -35,11 +36,24 @@ def post_listing_to_slack(sc, listing):
     :param sc: A slack client.
     :param listing: A record of the listing.
     """
-    desc = "{0} | {1} | {2} | {3} | <{4}>".format(listing["area"], listing["price"], listing["bart_dist"], listing["name"], listing["url"])
-    sc.api_call(
-        "chat.postMessage", channel=settings.SLACK_CHANNEL, text=desc,
-        username='pybot', icon_emoji=':robot_face:'
-    )
+    print(listing["area"])
+    print(listing["price"])
+    print(listing["bart_dist"])
+    print(listing["name"])
+    print(listing["url"])
+
+    try:
+        desc = "{0} | {1} | {2} | {3} | <{4}>".format(listing["area"], listing["price"], listing["bart_dist"], listing["name"], listing["url"])
+    except Exception as exc:
+        print("Error posting to Slack:", sys.exc_info()[0])
+
+    try:
+        sc.api_call(
+            "chat.postMessage", channel=settings.SLACK_CHANNEL, text=desc,
+            username='pybot', icon_emoji=':robot_face:')
+    except Exception as exc:
+        print("Error posting to Slack:", sys.exc_info()[0])
+    
 
 def find_points_of_interest(geotag, location):
     """
